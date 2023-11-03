@@ -1,0 +1,94 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .primary-color {
+            background-color: #2196F3;
+            color: #ffffff;
+        }
+
+        .accent-color {
+            background-color: #FF5722;
+            color: #ffffff;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #4CAF50;
+            color: #ffffff;
+        }
+
+        ul {
+            list-style: inside;
+            text-align: left;
+            padding: 0;
+        }
+
+
+        li {
+            margin-bottom: 10px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>ToDo List</h1>
+        <ul>
+            {% for task in tasks %}
+            <li>{{ task }}</li>
+            {% endfor %}
+        </ul>
+        <form action="/add" method="post">
+            <label for="task">New Task:</label>
+            <input type="text" id="task" name="task" required>
+            <button class="button primary-color" type="submit">Add Task</button>
+        </form>
+        <form action="/remove" method="post">
+            <label for="task">Task to Remove:</label>
+            <input type="text" id="task" name="task" required>
+            <button class="button accent-color" type="submit">Remove Task</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    </div>
+</body>
+
+</html>
+
